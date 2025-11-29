@@ -1,8 +1,25 @@
-// function definitions
+// Intial calling
+const loader = document.createElement('div');
+loader.id = 'loading-screen';
+loader.innerHTML = `
+  <div class="spinner"></div>
+  <div class="loading-text">Loading WikiLite…</div>
+`;
+document.body.appendChild(loader);
 
-// function() { ... }
+// function definitions
+function removeSpinningWheel() {
+    const loader = document.getElementById('loading-screen');
+    if (loader) loader.remove();
+}
+
+function removeLazyVisibilityBlockIfPresent() {
+    const lazyVisibilityBlock = document.querySelector('.lazy-visibility');
+    if (lazyVisibilityBlock) lazyVisibilityBlock.style.display = 'none';
+}
 
 // All functions defined above need to be loaded here
 document.addEventListener("DOMContentLoaded", function() {
-    // function callings
+    removeSpinningWheel();
+    removeLazyVisibilityBlockIfPresent();
 });

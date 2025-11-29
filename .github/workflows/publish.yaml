@@ -18,8 +18,7 @@ jobs:
         with:
           graph-directory: .
           theme-mode: dark
-          accent-color: blue
-
+          accent-color: green
       - name: Inject custom CSS and JS
         run: |
           # Copy your custom files to www/ (create custom/ folder in your repo root first)
