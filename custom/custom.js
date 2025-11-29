@@ -1,14 +1,16 @@
 // Intial calling
-/*document.getElementById('root').innerHTML += `
-<div id="loading-screen">
-    <div class="spinner"></div>
-    <div class="loading-text">Loading WikiLite…</div>
-</div>`;*/
+const loader = document.createElement('div');
+loader.id = 'loading-screen';
+loader.innerHTML = `
+  <div class="spinner"></div>
+  <div class="loading-text">Loading WikiLite…</div>
+`;
+document.body.appendChild(loader);
 
 // function definitions
 function removeSpinningWheel() {
     const loader = document.getElementById('loading-screen');
-    if (loader) loader.style.display = 'none';
+    if (loader) loader.remove();
 }
 
 function removeLazyVisibilityBlockIfPresent() {
@@ -18,6 +20,6 @@ function removeLazyVisibilityBlockIfPresent() {
 
 // All functions defined above need to be loaded here
 document.addEventListener("DOMContentLoaded", function() {
-    //removeSpinningWheel();
+    removeSpinningWheel();
     removeLazyVisibilityBlockIfPresent();
 });
