@@ -20,7 +20,21 @@ jobs:
           theme-mode: dark
           accent-color: cyan
 
-      - name: Add a nojekyll file # to make sure asset paths are correctly identified
+      - name: Inject custom CSS and JS
+        run: |
+          # Copy your custom files to www/ (create custom/ folder in your repo root first)
+          mkdir -p www/custom
+          cp custom/custom.css www/custom/ || true
+          cp custom/custom.js www/custom/ || true
+          
+          # Inject CSS into <head>
+          sed -i 's|</head>|<link rel="stylesheet" href="./custom/custom.css">|' www/index.html || true
+          
+          # Inject JS before </body>
+          sed -i 's|</body>|<script src="./custom/custom.js"></script>|' www/index.html || true
+        shell: bash
+
+      - name: Add a nojekyll file
         run: touch $GITHUB_WORKSPACE/www/.nojekyll
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
