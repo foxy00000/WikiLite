@@ -1,9 +1,9 @@
 // Intial calling
-document.getElementById('root').innerHTML += `
+/*document.getElementById('root').innerHTML += `
 <div id="loading-screen">
     <div class="spinner"></div>
     <div class="loading-text">Loading WikiLite…</div>
-</div>`;
+</div>`;*/
 
 // function definitions
 function removeSpinningWheel() {
