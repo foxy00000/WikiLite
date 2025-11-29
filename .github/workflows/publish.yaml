@@ -17,8 +17,6 @@ jobs:
         uses: logseq/publish-spa@main
         with:
           graph-directory: .
-          theme-mode: dark
-          accent-color: blue
 
       - name: Inject custom CSS and JS
         run: |
