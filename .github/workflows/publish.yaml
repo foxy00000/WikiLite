@@ -19,7 +19,7 @@ jobs:
           graph-directory: .
           theme-mode: dark
           accent-color: green
-      - name: Inject custom CSS and JS
+      - name: Inject custom HTML, CSS and JS
         run: |
           # Copy your custom files to www/ (create custom/ folder in your repo root first)
           mkdir -p www/custom
@@ -29,8 +29,9 @@ jobs:
           # Inject CSS into <head>
           sed -i 's|</head>|<link rel="stylesheet" href="./custom/custom.css">|' www/index.html || true
           
-          # Inject JS before </body>
-          sed -i 's|</body>|<script src="./custom/custom.js"></script>|' www/index.html || true
+          # Inject spinning wheel and JS into <body>
+          sed -i 's|</body>|<script src="./custom/custom.js"></script><div id="loading-screen"><div class="spinner"></div><div class="loading-text">Loading WikiLite…</div></div>|' www/index.html || true
+
         shell: bash
 
       - name: Add a nojekyll file
