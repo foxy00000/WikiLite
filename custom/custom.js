@@ -10,7 +10,25 @@ function removeLazyVisibilityBlockIfPresent() {
 }
 
 // All functions defined above need to be loaded here
-document.addEventListener("load", function() {
-    removeSpinningWheel();
-    removeLazyVisibilityBlockIfPresent();
+document.addEventListener("DOMContentLoaded", function () {
+    const root = document.getElementById("root");
+    if (!root) {
+        return;
+    }
+
+    const observer = new MutationObserver((mutationsList, obs) => {
+        if (root.innerHTML.trim() !== "" || root.children.length > 0) {
+            removeSpinningWheel();
+            removeLazyVisibilityBlockIfPresent();
+            obs.disconnect();
+        }
+    });
+
+    observer.observe(root, {
+        childList: true,
+        subtree: true
+    });
 });
+
+window.addEventListener("load", removeSpinningWheel);
+window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
