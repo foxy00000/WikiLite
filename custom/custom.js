@@ -1,12 +1,3 @@
-// Intial calling
-const loader = document.createElement('div');
-loader.id = 'loading-screen';
-loader.innerHTML = `
-  <div class="spinner"></div>
-  <div class="loading-text">Loading WikiLite…</div>
-`;
-document.body.appendChild(loader);
-
 // function definitions
 function removeSpinningWheel() {
     const loader = document.getElementById('loading-screen');
