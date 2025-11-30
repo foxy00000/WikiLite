@@ -26,8 +26,11 @@ function replaceCodeInsertionsWithTexts() {
             "CODE_INSERTION_RANDOM_PSY_FACT",
             randomFact
           );
+          return true;
         }
     });
+    
+    return false;
 }
 
 // All functions defined above need to be loaded here
@@ -41,12 +44,24 @@ document.addEventListener("DOMContentLoaded", function () {
         if (root.innerHTML.trim() !== "" || root.children.length > 0) {
             removeSpinningWheel();
             removeLazyVisibilityBlockIfPresent();
-            replaceCodeInsertionsWithTexts();
             obs.disconnect();
         }
     });
 
     observer.observe(root, {
+        childList: true,
+        subtree: true
+    });
+
+    const textReplacementsObserver = new MutationObserver((mutationsList, obs) => {
+        let codeReplaced = replaceCodeInsertionsWithTexts();
+        
+        if (codeReplaced) {
+            obs.disconnect();
+        }
+    });
+
+    textReplacementsObserver.observe(root, {
         childList: true,
         subtree: true
     });
