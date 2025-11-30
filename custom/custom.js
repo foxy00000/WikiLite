@@ -10,7 +10,7 @@ function removeLazyVisibilityBlockIfPresent() {
 }
 
 // All functions defined above need to be loaded here
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("load", function() {
     removeSpinningWheel();
     removeLazyVisibilityBlockIfPresent();
 });
