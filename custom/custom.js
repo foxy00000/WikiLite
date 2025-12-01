@@ -4,9 +4,33 @@ function removeSpinningWheel() {
     if (loader) loader.remove();
 }
 
+function fireKey(type, key) {
+    document.dispatchEvent(
+        new KeyboardEvent(type, {
+        key,
+        code: 'Key' + key.toUpperCase(),
+        bubbles: true
+        })
+    );
+}
+
+function setDefaultWideWindow() {
+    fireKey('keydown', 't');
+    fireKey('keydown', 'w');
+    fireKey('keyup', 't');
+    fireKey('keyup', 'w');
+}
+
 function removeLazyVisibilityBlockIfPresent() {
     const lazyVisibilityBlock = document.querySelector('.lazy-visibility');
     if (lazyVisibilityBlock) lazyVisibilityBlock.style.display = 'none';
+}
+
+function toggleToDocumentModeRemoveBulletPoints() {
+    fireKey('keydown', 't');
+    fireKey('keydown', 'd');
+    fireKey('keyup', 't');
+    fireKey('keyup', 'd');
 }
 
 function replaceCodeInsertionsWithTexts() {
@@ -43,6 +67,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const observer = new MutationObserver((mutationsList, obs) => {
         if (root.innerHTML.trim() !== "" || root.children.length > 0) {
             removeSpinningWheel();
+            setDefaultWideWindow();
+            toggleToDocumentModeRemoveBulletPoints();
             removeLazyVisibilityBlockIfPresent();
             obs.disconnect();
         }
@@ -66,7 +92,3 @@ document.addEventListener("DOMContentLoaded", function () {
         subtree: true
     });
 });
-
-window.addEventListener("load", removeSpinningWheel);
-window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
-window.addEventListener("load", replaceCodeInsertionsWithTexts);

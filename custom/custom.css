@@ -1,5 +1,6 @@
 /* All css changes need to be made here */
 
+/* Loading Screen */
 #loading-screen {
     position: fixed;
     inset: 0;
@@ -12,24 +13,50 @@
     background: #0b1020;
     color: #f5f5f5;
     z-index: 9999;
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+        border-top-color: #ffffff;
+        animation: spin 0.8s linear infinite;
+        margin-bottom: 12px;
+    }
+
+    .loading-text {
+        opacity: 0.8;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
 }
 
-.spinner {
-    width: 40px;
-    height: 40px;
-    border-radius: 999px;
-    border: 4px solid rgba(255, 255, 255, 0.2);
-    border-top-color: #ffffff;
-    animation: spin 0.8s linear infinite;
-    margin-bottom: 12px;
+/* Main Container */
+#main-content-container {
+    .title.block {
+        text-align: center;
+    }
 }
+/* Left Sidebar */
+#left-sidebar {
+    .flashcards-nav {
+        display: none;
+    }
 
-.loading-text {
-    opacity: 0.8;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+    /* Replaces home with Home in left sidebar */
+    .home-nav .flex-1 {
+        visibility: hidden;
+        position: relative;
+    }
+    .home-nav .flex-1:after {
+        visibility: visible;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "Home";
     }
 }
