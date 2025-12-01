@@ -4,33 +4,14 @@ function removeSpinningWheel() {
     if (loader) loader.remove();
 }
 
-function fireKey(type, key) {
-    document.dispatchEvent(
-        new KeyboardEvent(type, {
-        key,
-        code: 'Key' + key.toUpperCase(),
-        bubbles: true
-        })
-    );
-}
-
 function setDefaultWideWindow() {
-    fireKey('keydown', 't');
-    fireKey('keydown', 'w');
-    fireKey('keyup', 't');
-    fireKey('keyup', 'w');
+    const main = document.getElementsByTagName("main")[0];
+    if (main) main.classList.add("ls-wide-mode");
 }
 
 function removeLazyVisibilityBlockIfPresent() {
     const lazyVisibilityBlock = document.querySelector('.lazy-visibility');
     if (lazyVisibilityBlock) lazyVisibilityBlock.style.display = 'none';
-}
-
-function toggleToDocumentModeRemoveBulletPoints() {
-    fireKey('keydown', 't');
-    fireKey('keydown', 'd');
-    fireKey('keyup', 't');
-    fireKey('keyup', 'd');
 }
 
 function replaceCodeInsertionsWithTexts() {
@@ -57,7 +38,7 @@ function replaceCodeInsertionsWithTexts() {
     return false;
 }
 
-// Functions that manipulate DOM Content goes here
+// All Functions are executed here
 document.addEventListener("DOMContentLoaded", function () {
     const root = document.getElementById("root");
     if (!root) {
@@ -68,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (root.innerHTML.trim() !== "" || root.children.length > 0) {
             removeSpinningWheel();
             removeLazyVisibilityBlockIfPresent();
+            setDefaultWideWindow();
             obs.disconnect();
         }
     });
@@ -91,9 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Functions that execute pre-defined logseq commands
-window.addEventListener("load", setDefaultWideWindow);
-window.addEventListener("load", toggleToDocumentModeRemoveBulletPoints);
-// Functions that manipulate DOM Content goes here again (to ensure they get executed)
+// Functions are executed here again (to ensure they are loaded)
 window.addEventListener("load", removeSpinningWheel);
 window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
+window.addEventListener("load", setDefaultWideWindow);
