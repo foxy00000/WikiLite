@@ -57,7 +57,7 @@ function replaceCodeInsertionsWithTexts() {
     return false;
 }
 
-// All functions defined above need to be loaded here
+// Functions that manipulate DOM Content goes here
 document.addEventListener("DOMContentLoaded", function () {
     const root = document.getElementById("root");
     if (!root) {
@@ -67,8 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const observer = new MutationObserver((mutationsList, obs) => {
         if (root.innerHTML.trim() !== "" || root.children.length > 0) {
             removeSpinningWheel();
-            setDefaultWideWindow();
-            toggleToDocumentModeRemoveBulletPoints();
             removeLazyVisibilityBlockIfPresent();
             obs.disconnect();
         }
@@ -92,3 +90,10 @@ document.addEventListener("DOMContentLoaded", function () {
         subtree: true
     });
 });
+
+// Functions that execute pre-defined logseq commands
+window.addEventListener("load", setDefaultWideWindow);
+window.addEventListener("load", toggleToDocumentModeRemoveBulletPoints);
+// Functions that manipulate DOM Content goes here again (to ensure they get executed)
+window.addEventListener("load", removeSpinningWheel);
+window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
