@@ -1,19 +1,75 @@
-// function definitions
-function removeSpinningWheel() {
+/**
+ * Removes the Loading Screen
+ * 
+ * return void
+ */
+function removeLoadingScreen() {
     const loader = document.getElementById('loading-screen');
-    if (loader) loader.remove();
+    const documentModeSet = checkUntilDocumentModeIsSet();
+    if (loader && documentModeSet) loader.remove();
 }
 
+/**
+ * Sets the Layout of the Page to wide mode 
+ * 
+ * return void
+ */
 function setDefaultWideWindow() {
     const main = document.getElementsByTagName("main")[0];
     if (main) main.classList.add("ls-wide-mode");
 }
 
+/**
+ * Checks if the page is alrady in document mode and if not it hits 't-d'
+ * 
+ * @returns boolean
+ */
+function setDocumentMode() {
+
+    const bulletPoints = document.getElementsByClassName("bullet");
+
+    if (document.getElementsByClassName("doc-mode").length > 0) {
+        return true
+    }
+    if (bulletPoints.length !== 0) {
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "t", bubbles: true }));
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "d", bubbles: true }));
+        document.dispatchEvent(new KeyboardEvent("keyup", { key: "t", bubbles: true }));
+        document.dispatchEvent(new KeyboardEvent("keyup", { key: "d", bubbles: true })); 
+    }
+
+    return false;
+}
+/**
+ * Checks if the Document Mode is already set and if not sets it
+ * Note: Usage of Recursive Timeout Function here because it outperforms the MutationObserver in speed
+ * due to depth of the observed object (many changes to process)
+ *
+ * @returns boolean
+ */
+function checkUntilDocumentModeIsSet() {
+    setTimeout(function() {
+        let documentModeSet = setDocumentMode();
+        if (!documentModeSet) checkUntilDocumentModeIsSet();
+    }, 50);
+    return true;
+}
+
+/**
+ * If Lazy VisibilityBlock is still there it gets removed
+ * 
+ */
 function removeLazyVisibilityBlockIfPresent() {
     const lazyVisibilityBlock = document.querySelector('.lazy-visibility');
     if (lazyVisibilityBlock) lazyVisibilityBlock.style.display = 'none';
 }
 
+/**
+ * Replaces Code Inbsertion Texts with Facts about psychology, programming, etc.
+ * and repports back true when it's done
+ * 
+ * @returns boolean
+ */
 function replaceCodeInsertionsWithTexts() {
 
     const random_psy_fact = [
@@ -47,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const observer = new MutationObserver((mutationsList, obs) => {
         if (root.innerHTML.trim() !== "" || root.children.length > 0) {
-            removeSpinningWheel();
+            removeLoadingScreen();
             removeLazyVisibilityBlockIfPresent();
             setDefaultWideWindow();
             obs.disconnect();
@@ -74,6 +130,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Functions are executed here again (to ensure they are loaded)
-window.addEventListener("load", removeSpinningWheel);
+window.addEventListener("load", removeLoadingScreen);
 window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
 window.addEventListener("load", setDefaultWideWindow);
