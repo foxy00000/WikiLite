@@ -4,6 +4,11 @@ function removeSpinningWheel() {
     if (loader) loader.remove();
 }
 
+function setDefaultWideWindow() {
+    const main = document.getElementsByTagName("main")[0];
+    if (main) main.classList.add("ls-wide-mode");
+}
+
 function removeLazyVisibilityBlockIfPresent() {
     const lazyVisibilityBlock = document.querySelector('.lazy-visibility');
     if (lazyVisibilityBlock) lazyVisibilityBlock.style.display = 'none';
@@ -33,7 +38,7 @@ function replaceCodeInsertionsWithTexts() {
     return false;
 }
 
-// All functions defined above need to be loaded here
+// All Functions are executed here
 document.addEventListener("DOMContentLoaded", function () {
     const root = document.getElementById("root");
     if (!root) {
@@ -44,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (root.innerHTML.trim() !== "" || root.children.length > 0) {
             removeSpinningWheel();
             removeLazyVisibilityBlockIfPresent();
+            setDefaultWideWindow();
             obs.disconnect();
         }
     });
@@ -67,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Functions are executed here again (to ensure they are loaded)
 window.addEventListener("load", removeSpinningWheel);
 window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
-window.addEventListener("load", replaceCodeInsertionsWithTexts);
+window.addEventListener("load", setDefaultWideWindow);
