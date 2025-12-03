@@ -7,5 +7,6 @@
   #+END_QUOTE >
 - ## Git
   collapsed:: true
+	- ## #[[Git - Installation]]
 	- ## #[[Git - Upload files]]
 	- ## #[[Git - Merge Branches]]
