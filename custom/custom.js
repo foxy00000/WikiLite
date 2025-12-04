@@ -77,6 +77,11 @@ function replaceCodeInsertionsWithTexts() {
         "Freud parts the human psyche in 3 parts, Id, Super-Ego and Ego"
     ];
 
+    const random_coding_tip = [
+        "There are 2 kinds of programming languages, interpreted (at runtime) and compiled (before runtime)",
+        "If you want to learn a new programming language, the best way doing so is to create a few projects"
+    ];
+
     const paragraphs = document.querySelectorAll(".is-paragraph");
     paragraphs.forEach(element => {
         if (element.innerHTML.includes("CODE_INSERTION_RANDOM_PSY_FACT")) {
@@ -88,6 +93,14 @@ function replaceCodeInsertionsWithTexts() {
             randomFact
           );
           return true;
+        } else if (element.innerHTML.includes("CODE_INSERTION_RANDOM_PROGRAMMING_TIP")) {
+            const randomIndex = Math.floor(Math.random() * random_psy_fact.length);
+            const randomFact = random_coding_tip[randomIndex];
+
+            element.innerHTML = element.innerHTML.replace(
+                "CODE_INSERTION_RANDOM_PROGRAMMING_TIP",
+                randomFact
+            );
         }
     });
     
