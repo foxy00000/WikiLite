@@ -29,7 +29,7 @@ jobs:
           sed -i 's|</head>|<link rel="stylesheet" href="./custom/custom.css"></head>|' www/index.html || true
           
           # Pre-process Spinning Wheel
-          sed -i '0,/<body>/s|<body>|<body><div id="loading-screen"><div class="spinner"></div><div class="loading-text">Loading WikiLite…</div></div>|' www/index.html || true
+          sed -i '0,/<body>/s|<body>|<body><div id="loading-screen"><div id="spinner"></div><div id="loading-text">Loading WikiLite…</div><div id="additional-loading-text"></div></div>|' www/index.html || true
           
           # Inject JS for post-processing
           sed -i 's|</body>|<script src="./custom/custom.js"></script></body>|' www/index.html || true
