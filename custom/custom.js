@@ -34,10 +34,9 @@ function addAdditionalText() {
  * @returns void
  */
 function loadingScreenHandler() {
-    addAdditionalText();
-
     const loader = document.getElementById('loading-screen');
     const documentModeSet = checkUntilDocumentModeIsSet();
+
     if (loader && documentModeSet) loader.remove();
 }
 
@@ -140,12 +139,17 @@ function replaceCodeInsertionsWithTexts() {
     return false;
 }
 
-// All Functions are executed here
-document.addEventListener("DOMContentLoaded", function () {
+/**
+ * Code Execution
+ * 
+ * @returns void
+ */
+const main = () => {
     const root = document.getElementById("root");
     if (!root) {
         return;
     }
+    addAdditionalText();
 
     const observer = new MutationObserver((mutationsList, obs) => {
         if (root.innerHTML.trim() !== "" || root.children.length > 0) {
@@ -173,9 +177,11 @@ document.addEventListener("DOMContentLoaded", function () {
         childList: true,
         subtree: true
     });
-});
 
-// Functions are executed here again (to ensure they are loaded)
-window.addEventListener("load", loadingScreenHandler);
-window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
-window.addEventListener("load", setDefaultWideWindow);
+    // Functions are executed here again (to ensure they are loaded)
+    window.addEventListener("load", loadingScreenHandler);
+    window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
+    window.addEventListener("load", setDefaultWideWindow);
+}
+
+main();
