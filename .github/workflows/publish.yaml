@@ -37,8 +37,7 @@ jobs:
           </div>|' www/index.html || true
 
           # Inject Javascript for post-processing
-          sed -i '0,/id="root"/s|</div>|<script src="./custom/custom.js"></script>\
-          </div>|' www/index.html || true
+          sed -i '/id="root"/,/<\/div>/s|\(id="root"[^>]*>.*\)</div>|\1<script src="./custom/custom.js"></script></div>|' www/index.html || true
 
         shell: bash
 
