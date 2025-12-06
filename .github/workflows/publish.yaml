@@ -28,11 +28,14 @@ jobs:
           # Inject CSS for post-processing
           sed -i 's|</head>|<link rel="stylesheet" href="./custom/custom.css"></head>|' www/index.html || true
 
-          # Inject JS for post-processing
-          sed -i '0,/<body>/s|<body>|<script src="./custom/custom.js"></script>|' www/index.html || true
-
-          # Pre-process Spinning Wheel - HTML
-          sed -i '0,/<body>/s|<body>|<body><div id="loading-screen"><div id="spinner"></div><div id="loading-text">Loading WikiLite…</div><div id="additional-loading-text"></div></div>|' www/index.html || true
+          # Inject HTML (Loading Screen) and Javascript for post-processing
+          sed -i '0,/<body>/s|<body>|<body>\
+          <div id="loading-screen">\
+            <div id="spinner"></div>\
+            <div id="loading-text">Loading WikiLite…</div>\
+            <div id="additional-loading-text"></div>\
+          </div>\
+          <script src="./custom/custom.js"></script>|' www/index.html
 
         shell: bash
 
