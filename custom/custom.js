@@ -1,9 +1,41 @@
 /**
- * Removes the Loading Screen
+ * Add the additional loading screen texts
  * 
- * return void
+ * @returns void
  */
-function removeLoadingScreen() {
+function addAdditionalText() {
+    const additionalTexts = [
+        "Loading the graph",
+        "Gathering the facts",
+        "Catching Bugs",
+        "Exporing new fields"
+    ];
+
+    let index = 0;
+
+    function showNext() {
+        const textContainer = document.getElementById("additional-loading-text");
+        if (!textContainer) return;
+        
+        textContainer.innerHTML = additionalTexts[index];
+        
+        index = (index + 1) % additionalTexts.length; // infinite loop
+        setTimeout(showNext, 3000);
+    }
+
+    showNext();
+    return;
+
+}
+
+/**
+ * Loads the text and removes the Loading Screen
+ * 
+ * @returns void
+ */
+function loadingScreenHandler() {
+    addAdditionalText();
+
     const loader = document.getElementById('loading-screen');
     const documentModeSet = checkUntilDocumentModeIsSet();
     if (loader && documentModeSet) loader.remove();
@@ -12,7 +44,7 @@ function removeLoadingScreen() {
 /**
  * Sets the Layout of the Page to wide mode 
  * 
- * return void
+ * @returns void
  */
 function setDefaultWideWindow() {
     const main = document.getElementsByTagName("main")[0];
@@ -58,6 +90,7 @@ function checkUntilDocumentModeIsSet() {
 /**
  * If Lazy VisibilityBlock is still there it gets removed
  * 
+ * @returns void
  */
 function removeLazyVisibilityBlockIfPresent() {
     const lazyVisibilityBlock = document.querySelector('.lazy-visibility');
@@ -116,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const observer = new MutationObserver((mutationsList, obs) => {
         if (root.innerHTML.trim() !== "" || root.children.length > 0) {
-            removeLoadingScreen();
+            loadingScreenHandler();
             removeLazyVisibilityBlockIfPresent();
             setDefaultWideWindow();
             obs.disconnect();
@@ -143,6 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Functions are executed here again (to ensure they are loaded)
-window.addEventListener("load", removeLoadingScreen);
+window.addEventListener("load", loadingScreenHandler);
 window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
 window.addEventListener("load", setDefaultWideWindow);
