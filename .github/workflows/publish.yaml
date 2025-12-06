@@ -28,14 +28,17 @@ jobs:
           # Inject CSS for post-processing
           sed -i 's|</head>|<link rel="stylesheet" href="./custom/custom.css"></head>|' www/index.html || true
 
-          # Inject HTML (Loading Screen) and Javascript for post-processing
-          sed -i '0,/<body>/s|<body>|<body>\
+          # Inject HTML (Loading Screen)
+          sed -i '0,/id="root"/s|<body>|<body>\
           <div id="loading-screen">\
             <div id="spinner"></div>\
             <div id="loading-text">Loading WikiLite…</div>\
             <div id="additional-loading-text"></div>\
-          </div>\
-          <script src="./custom/custom.js"></script>|' www/index.html
+          </div>|' www/index.html || true
+
+          # Inject Javascript for post-processing
+          sed -i '0,/id="root"/s|</div>|<script src="./custom/custom.js"></script>\
+          </div>|' www/index.html || true
 
         shell: bash
 
