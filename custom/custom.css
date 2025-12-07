@@ -45,6 +45,19 @@
         text-align: center;
     }
 }
+
+/* Dark Mode / Light Mode Switch */
+.light {
+    #block-content-6934fcf5-0a9a-4cef-bcdc-a99e8c2480fd { /* Instance Model - Hide Dark Mode image */
+        display: none !important;
+    }
+}
+.dark {
+    #block-content-6934fcf5-4b39-418e-895d-f40d93d99e1f { /* Instance Model - Hide Light Mode image */
+        display: none !important;
+    }
+}
+
 /* Left Sidebar */
 #left-sidebar {
     .flashcards-nav {
