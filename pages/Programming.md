@@ -5,8 +5,4 @@
   #+BEGIN_QUOTE
   **Tip:** To expand the Bullet Points, please click on the arrow left next to the points when hovering over it, see #[[Video - Bullet Points]]
   #+END_QUOTE >
-- ## Git
-  collapsed:: true
-	- ## #[[Git - Installation]]
-	- ## #[[Git - Upload files]]
-	- ## #[[Git - Merge Branches]]
+- ## #Git

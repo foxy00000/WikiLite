@@ -1,7 +1,9 @@
 - #+BEGIN_QUOTE
-  |**[[Psychology]]**|**[[Programming]]**|
+  |Topics:|Subtopics:|
   |--|--|
-  |#[[Instance Model (Freud)]]|#Git|
+  |**[[Psychology]]**|#[[Instance Model (Freud)]]|
+  |--|--|
+  |**[[Programming]]**|#Git|
   #+END_QUOTE
 -
 - ## #[[How to use?]] (Click me to learn more)

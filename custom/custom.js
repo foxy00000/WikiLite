@@ -29,7 +29,7 @@ function addAdditionalText() {
 }
 
 /**
- * Loads the text and removes the Loading Screen
+ * Loads the document mode and removes the loading Screen
  * 
  * @returns void
  */
