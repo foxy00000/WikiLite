@@ -150,11 +150,9 @@ function toggleImageVisibility() {
 
     const isDarkMode = document.querySelector(".dark");
     if (isDarkMode) {
-        console.log("Dark Mode branch");
         images[1].style = "display: none";
         images[0].style = "";
     } else {
-        console.log("Light Mode branch");
         images[0].style = "display: none";
         images[1].style = "";
     }
