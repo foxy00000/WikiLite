@@ -182,7 +182,7 @@ const main = () => {
 
     observer.observe(root, {
         childList: true,
-        subtree: true
+        subtree: false
     });
 
     const textReplacementsObserver = new MutationObserver((mutationsList, obs) => {
