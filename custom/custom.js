@@ -140,6 +140,28 @@ function replaceCodeInsertionsWithTexts() {
 }
 
 /**
+ * Toggles between the light and dark mode version of images
+ * 
+ * @returns void
+ */
+function toggleImageVisibility() {
+    const images = document.getElementsByClassName("image-resize");
+    if (images.length == 0) return;
+
+    const isDarkMode = document.querySelector(".dark");
+    if (isDarkMode) {
+        console.log("Dark Mode branch");
+        images[1].style = "display: none";
+        images[0].style = "";
+    } else {
+        console.log("Light Mode branch");
+        images[0].style = "display: none";
+        images[1].style = "";
+    }
+
+}
+
+/**
  * Code Execution
  * 
  * @returns void
@@ -174,6 +196,15 @@ const main = () => {
     });
 
     textReplacementsObserver.observe(root, {
+        childList: true,
+        subtree: true
+    });
+
+    const imageReplacementsObserver = new MutationObserver((mutationsList, obs) => {
+        toggleImageVisibility();
+    });
+
+    imageReplacementsObserver.observe(root, {
         childList: true,
         subtree: true
     });
