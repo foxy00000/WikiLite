@@ -44,6 +44,11 @@
     .title.block {
         text-align: center;
     }
+
+    .bracket {
+        display: none;
+    }
+
 }
 
 /* Left Sidebar */
