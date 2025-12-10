@@ -5,10 +5,10 @@
  */
 function addAdditionalText() {
     const additionalTexts = [
-        "Loading the graph",
         "Gathering the facts",
+        "Exploring new fields",
         "Catching Bugs",
-        "Exporing new fields"
+        "Loading the graph",
     ];
 
     let index = 0;
@@ -164,7 +164,7 @@ function toggleImageVisibility() {
  * 
  * @returns void
  */
-const main = () => {
+function main() {
     const root = document.getElementById("root");
     if (!root) {
         return;
@@ -195,7 +195,8 @@ const main = () => {
 
     textReplacementsObserver.observe(root, {
         childList: true,
-        subtree: true
+        subtree: true,
+        attributes: true
     });
 
     const imageReplacementsObserver = new MutationObserver((mutationsList, obs) => {
@@ -204,7 +205,8 @@ const main = () => {
 
     imageReplacementsObserver.observe(root, {
         childList: true,
-        subtree: true
+        subtree: true,
+        attributes: true
     });
 
     // Functions are executed here again (to ensure they are loaded)
