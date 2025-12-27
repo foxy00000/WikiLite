@@ -1,0 +1,5 @@
+- All these concepts are explained using Javascript
+- ## [[FP - Using constants]]
+- FP - Recursion instead of loops
+- FP - Seperate Data Logic from DOM Manipulation
+- FP - Higher Order Functions
