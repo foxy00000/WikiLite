@@ -1,18 +1,49 @@
 /**
- * Removes the Loading Screen
+ * Add the additional loading screen texts
  * 
- * return void
+ * @returns void
  */
-function removeLoadingScreen() {
+function addAdditionalText() {
+    const additionalTexts = [
+        "Gathering the facts",
+        "Exploring new fields",
+        "Catching Bugs",
+        "Loading the graph",
+    ];
+
+    let index = 0;
+
+    function showNext() {
+        const textContainer = document.getElementById("additional-loading-text");
+        if (!textContainer) return;
+        
+        textContainer.innerHTML = additionalTexts[index];
+        
+        index = (index + 1) % additionalTexts.length; // infinite loop
+        setTimeout(showNext, 3000);
+    }
+
+    showNext();
+    return;
+
+}
+
+/**
+ * Loads the document mode and removes the loading Screen
+ * 
+ * @returns void
+ */
+function loadingScreenHandler() {
     const loader = document.getElementById('loading-screen');
     const documentModeSet = checkUntilDocumentModeIsSet();
+
     if (loader && documentModeSet) loader.remove();
 }
 
 /**
  * Sets the Layout of the Page to wide mode 
  * 
- * return void
+ * @returns void
  */
 function setDefaultWideWindow() {
     const main = document.getElementsByTagName("main")[0];
@@ -58,6 +89,7 @@ function checkUntilDocumentModeIsSet() {
 /**
  * If Lazy VisibilityBlock is still there it gets removed
  * 
+ * @returns void
  */
 function removeLazyVisibilityBlockIfPresent() {
     const lazyVisibilityBlock = document.querySelector('.lazy-visibility');
@@ -107,16 +139,41 @@ function replaceCodeInsertionsWithTexts() {
     return false;
 }
 
-// All Functions are executed here
-document.addEventListener("DOMContentLoaded", function () {
+/**
+ * Toggles between the light and dark mode version of images
+ * 
+ * @returns void
+ */
+function toggleImageVisibility() {
+    const images = document.getElementsByClassName("image-resize");
+    if (images.length == 0) return;
+
+    const isDarkMode = document.querySelector(".dark");
+    if (isDarkMode) {
+        images[1].style = "display: none";
+        images[0].style = "";
+    } else {
+        images[0].style = "display: none";
+        images[1].style = "";
+    }
+
+}
+
+/**
+ * Code Execution
+ * 
+ * @returns void
+ */
+function main() {
     const root = document.getElementById("root");
     if (!root) {
         return;
     }
+    addAdditionalText();
 
     const observer = new MutationObserver((mutationsList, obs) => {
         if (root.innerHTML.trim() !== "" || root.children.length > 0) {
-            removeLoadingScreen();
+            loadingScreenHandler();
             removeLazyVisibilityBlockIfPresent();
             setDefaultWideWindow();
             obs.disconnect();
@@ -125,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     observer.observe(root, {
         childList: true,
-        subtree: true
+        subtree: false
     });
 
     const textReplacementsObserver = new MutationObserver((mutationsList, obs) => {
@@ -138,11 +195,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     textReplacementsObserver.observe(root, {
         childList: true,
-        subtree: true
+        subtree: true,
+        attributes: true
     });
-});
 
-// Functions are executed here again (to ensure they are loaded)
-window.addEventListener("load", removeLoadingScreen);
-window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
-window.addEventListener("load", setDefaultWideWindow);
+    const imageReplacementsObserver = new MutationObserver((mutationsList, obs) => {
+        toggleImageVisibility();
+    });
+
+    imageReplacementsObserver.observe(root, {
+        childList: true,
+        subtree: true,
+        attributes: true
+    });
+
+    // Functions are executed here again (to ensure they are loaded)
+    window.addEventListener("load", loadingScreenHandler);
+    window.addEventListener("load", removeLazyVisibilityBlockIfPresent);
+    window.addEventListener("load", setDefaultWideWindow);
+}
+
+main();
