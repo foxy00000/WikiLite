@@ -1,0 +1,2 @@
+## [[SOLID]]
+- ## [[Functional Programming]]
