@@ -149,6 +149,16 @@ function toggleImageVisibility() {
     if (images.length == 0) return;
 
     const isDarkMode = document.querySelector(".dark");
+    const image0Visible = window.getComputedStyle(images[0]).display;
+    const image1Visible = window.getComputedStyle(images[1]).display;
+
+
+    if (isDarkMode) {
+        if (image0Visible !== "none" && image1Visible === "none") return;
+    } else {
+        if (image0Visible === "none" && image1Visible !== "none") return;
+    }
+
     if (isDarkMode) {
         images[1].style = "display: none";
         images[0].style = "";
